@@ -92,19 +92,14 @@ export default async function ClanDetailPage({ params }: Props) {
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold sm:text-3xl">{listing.name}</h1>
             {listing.owner.isVerified ? (
-              <ShieldCheck
-                className="text-primary size-5"
-                aria-label="Sahibi doğrulanmış"
-              />
+              <ShieldCheck className="text-primary size-5" aria-label="Sahibi doğrulanmış" />
             ) : null}
           </div>
           <p className="text-muted-foreground font-mono text-sm">{listing.clanTag}</p>
           <div className="mt-2 flex flex-wrap gap-1">
             <Badge variant="secondary">Lvl {listing.level}</Badge>
             <Badge variant="secondary">{listing.memberCount}/50 üye</Badge>
-            <Badge variant="secondary">
-              {listing.trophies.toLocaleString("tr-TR")} kupa
-            </Badge>
+            <Badge variant="secondary">{listing.trophies.toLocaleString("tr-TR")} kupa</Badge>
             {listing.requiredTH > 1 ? (
               <Badge variant="secondary">TH {listing.requiredTH}+ aranır</Badge>
             ) : null}
@@ -125,14 +120,18 @@ export default async function ClanDetailPage({ params }: Props) {
       <Separator />
 
       <section className="mt-6 grid gap-6 sm:grid-cols-3">
-        <StatCard icon={Swords} label="Savaş sıklığı" value={warFrequencyLabel(listing.warFrequency)} />
+        <StatCard
+          icon={Swords}
+          label="Savaş sıklığı"
+          value={warFrequencyLabel(listing.warFrequency)}
+        />
         <StatCard icon={Trophy} label="Toplam war zaferi" value={listing.warWins.toString()} />
         <StatCard icon={Users} label="Win streak" value={listing.warWinStreak.toString()} />
       </section>
 
       {listing.customDescription ? (
         <Card className="mt-6">
-          <CardContent className="prose prose-zinc dark:prose-invert max-w-none whitespace-pre-wrap pt-6 text-sm">
+          <CardContent className="prose prose-zinc dark:prose-invert max-w-none pt-6 text-sm whitespace-pre-wrap">
             {listing.customDescription}
           </CardContent>
         </Card>
@@ -141,7 +140,7 @@ export default async function ClanDetailPage({ params }: Props) {
       {listing.description ? (
         <Card className="mt-6">
           <CardContent className="space-y-2 pt-6">
-            <p className="text-muted-foreground text-xs uppercase tracking-wide">
+            <p className="text-muted-foreground text-xs tracking-wide uppercase">
               Oyun içi açıklama
             </p>
             <p className="text-sm">{listing.description}</p>
@@ -188,7 +187,10 @@ export default async function ClanDetailPage({ params }: Props) {
       </p>
 
       <div className="mt-6">
-        <Link href="/klanlar" className="text-muted-foreground text-sm underline underline-offset-2">
+        <Link
+          href="/klanlar"
+          className="text-muted-foreground text-sm underline underline-offset-2"
+        >
           ← Klan listesine dön
         </Link>
       </div>

@@ -124,11 +124,8 @@ app.get("/clans/:tag", async (req, res) => {
   const force = req.header("x-force-refresh") === "1";
   const key = `clan:${tag}`;
   try {
-    const { status, body, cached } = await withCache(
-      key,
-      TTL.clan,
-      force,
-      async () => fetchFromCoc(`/clans/${tag}`),
+    const { status, body, cached } = await withCache(key, TTL.clan, force, async () =>
+      fetchFromCoc(`/clans/${tag}`),
     );
     res.setHeader("x-cache", cached ? "HIT" : "MISS");
     res.status(status).json(body);
@@ -143,11 +140,8 @@ app.get("/players/:tag", async (req, res) => {
   const force = req.header("x-force-refresh") === "1";
   const key = `player:${tag}`;
   try {
-    const { status, body, cached } = await withCache(
-      key,
-      TTL.player,
-      force,
-      async () => fetchFromCoc(`/players/${tag}`),
+    const { status, body, cached } = await withCache(key, TTL.player, force, async () =>
+      fetchFromCoc(`/players/${tag}`),
     );
     res.setHeader("x-cache", cached ? "HIT" : "MISS");
     res.status(status).json(body);

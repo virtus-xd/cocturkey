@@ -22,13 +22,14 @@ pnpm dev
 
 ## Endpoint'ler
 
-| Method | Path | Açıklama |
-|---|---|---|
-| `GET` | `/health` | Auth gerektirmez. Sağlık kontrolü. |
-| `GET` | `/clans/:tag` | URL-encoded tag (örn. `%23ABC123`). Cache TTL: 10 dk. |
-| `GET` | `/players/:tag` | URL-encoded tag. Cache TTL: 5 dk. |
+| Method | Path            | Açıklama                                              |
+| ------ | --------------- | ----------------------------------------------------- |
+| `GET`  | `/health`       | Auth gerektirmez. Sağlık kontrolü.                    |
+| `GET`  | `/clans/:tag`   | URL-encoded tag (örn. `%23ABC123`). Cache TTL: 10 dk. |
+| `GET`  | `/players/:tag` | URL-encoded tag. Cache TTL: 5 dk.                     |
 
 İstek başlıkları:
+
 - `x-proxy-secret`: `PROXY_SECRET` ile eşleşmeli (zorunlu)
 - `x-force-refresh: 1`: cache'i bypass eder, fresh CoC çağrısı atar
 

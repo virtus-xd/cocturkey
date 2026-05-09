@@ -36,8 +36,8 @@ export async function ensureAppUser(supabaseUser: SupabaseUser): Promise<AppUser
     `oyuncu-${supabaseUser.id.slice(0, 8)}`;
   const discordId =
     supabaseUser.app_metadata?.provider === "discord"
-      ? (supabaseUser.user_metadata?.provider_id as string | undefined) ??
-        (supabaseUser.user_metadata?.sub as string | undefined)
+      ? ((supabaseUser.user_metadata?.provider_id as string | undefined) ??
+        (supabaseUser.user_metadata?.sub as string | undefined))
       : undefined;
 
   return prisma.user.upsert({

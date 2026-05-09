@@ -11,9 +11,7 @@ import { normalizeCocTag } from "@/lib/coc/tag";
 import { prisma } from "@/lib/db/prisma";
 import { createClanListingSchema, clanTagSchema } from "@/lib/validation/clan";
 
-export type LookupResult =
-  | { ok: true; clan: CocClanSummary }
-  | { ok: false; error: string };
+export type LookupResult = { ok: true; clan: CocClanSummary } | { ok: false; error: string };
 
 /** Sadece clan tag → CoC verisi çeker. Henüz DB'ye yazmaz. */
 export async function lookupClan(rawTag: string): Promise<LookupResult> {

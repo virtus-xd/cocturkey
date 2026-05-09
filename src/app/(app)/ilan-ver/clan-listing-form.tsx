@@ -139,8 +139,8 @@ export function ClanListingForm() {
                   maxLength={2000}
                 />
                 <p className="text-muted-foreground text-xs">
-                  Oyun içi açıklama yetmediğinde aday oyuncuya senden ne göreceğini anlat. Maks
-                  2000 karakter.
+                  Oyun içi açıklama yetmediğinde aday oyuncuya senden ne göreceğini anlat. Maks 2000
+                  karakter.
                 </p>
               </div>
 
@@ -204,9 +204,7 @@ export function ClanListingForm() {
                   })}
                 </div>
                 {tags.length > 0 ? (
-                  <p className="text-muted-foreground text-xs">
-                    Seçilenler: {tags.join(", ")}
-                  </p>
+                  <p className="text-muted-foreground text-xs">Seçilenler: {tags.join(", ")}</p>
                 ) : null}
               </div>
 

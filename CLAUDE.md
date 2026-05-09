@@ -416,18 +416,20 @@ Bu **görmezden gelinemez** kurallardır. Her özellik tasarlanırken kontrol ed
 
 **Hedef:** Bir klan lideri ilan verebilir, bir oyuncu klan arayıp filtreleyebilir, başvuru yapabilir.
 
-- [ ] Auth (Supabase: email magic link + Discord OAuth)
-- [ ] Veritabanı şeması, Prisma kurulumu
-- [ ] CoC API proxy servisi (ayrı repo, deploy)
-- [ ] Klan ilanı oluşturma akışı (clan tag girişi → API'den otomatik veri → kullanıcı tanım ekler)
-- [ ] Klan listesi sayfası (mobile-first, sayfalama)
-- [ ] Klan filtre paneli (TH min/max, savaş sıklığı, dil)
-- [ ] Klan detay sayfası
-- [ ] Basit başvuru formu (mesaj + Discord ID)
-- [ ] Türkçe i18n altyapısı
-- [ ] Footer + Hakkında + Gizlilik + KVKK + Fan Content uyarısı
-- [ ] Sentry kurulumu
-- [ ] Vercel deploy + custom domain
+- [x] Auth (Supabase: email magic link + Discord OAuth) — server actions, middleware, callback
+- [x] Veritabanı şeması, Prisma kurulumu — Prisma 7 + driver adapter (`@prisma/adapter-pg`)
+- [x] CoC API proxy servisi (`coc-proxy/` klasörü, ileride ayrı repo) — Express + Upstash Redis cache + Dockerfile + DigitalOcean talimatları
+- [x] Klan ilanı oluşturma akışı (`/ilan-ver`) — `lookupClan` + `createClanListing` server actions, server-side re-fetch
+- [x] Klan listesi sayfası (`/klanlar`) — mobile-first, cursor pagination, ClanCard
+- [x] Klan filtre paneli — URL state ile, TH min/max, savaş sıklığı, arama
+- [x] Klan detay sayfası (`/klanlar/[tag]`) — sahip için RefreshButton (1 saat cooldown)
+- [x] Basit başvuru formu — ApplyDialog modal + duplicate guard
+- [x] Türkçe i18n altyapısı — Faz 0
+- [x] Footer + Hakkında + Gizlilik + KVKK + Fan Content uyarısı — Faz 0
+- [x] Profil sayfası (`/profil`) — sahip ilanlar + gönderilen başvurular
+- [x] SEO temelleri — `robots.ts`, `sitemap.ts` (DB ilanlarıyla), `manifest.ts`, OG image
+- [-] Sentry kurulumu — `instrumentation.ts` skeleton, DSN eklendiğinde aktif
+- [ ] Vercel deploy + custom domain — kullanıcı yapacak (Supabase + DigitalOcean kurulumu sonrası)
 
 **Bittiğinde:** İlk 10-20 klanı manuel ekle (Discord topluluğundan davet et). Hemen lansmana çıkma.
 
@@ -666,5 +668,6 @@ NODE_ENV=development
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-05-09 | İlk versiyon — proje planlama                                                                                                                                                                      |
 | 2026-05-09 | Faz 0 kod iskeleti kuruldu: Next 16 + Tailwind v4 + shadcn/ui (Radix/Nova) + Prisma 7 + tooling (Prettier/Husky/lint-staged/Vitest). Stack güncellendi (Next 15 → 16, Prisma 7 datasource config). |
+| 2026-05-09 | Faz 1 MVP core tamam: Supabase Auth (server actions + middleware), klan ilanı/liste/filtre/detay/başvuru akışları, profil sayfası, CoC proxy iskeleti, SEO (robots/sitemap/manifest/OG), Sentry skeleton. Prisma 7 driver adapter (@prisma/adapter-pg) + lazy Proxy. 21/21 unit test geçer. |
 
 > **Not:** Bu dosya proje boyunca yaşar. Her büyük karar burada yansıtılır. Karar değiştiyse eski karar silinmez, üstü çizilir veya yeniden yazılır.

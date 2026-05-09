@@ -18,7 +18,7 @@ export function ClanCard({ clan }: { clan: ClanListItem }) {
       <Card
         className={
           isBoosted
-            ? "ring-primary/40 ring-1 hover:border-primary/50 h-full overflow-hidden transition-colors"
+            ? "ring-primary/40 hover:border-primary/50 h-full overflow-hidden ring-1 transition-colors"
             : "hover:border-primary/50 h-full overflow-hidden transition-colors"
         }
       >

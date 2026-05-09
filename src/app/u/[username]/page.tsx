@@ -94,9 +94,7 @@ export default async function PublicProfilePage({ params }: Props) {
                       <div className="flex-1">
                         <div className="flex items-center gap-1 font-semibold">
                           {c.name}
-                          {c.verifiedAt ? (
-                            <ShieldCheck className="text-primary size-4" />
-                          ) : null}
+                          {c.verifiedAt ? <ShieldCheck className="text-primary size-4" /> : null}
                         </div>
                         <p className="text-muted-foreground font-mono text-xs">{c.clanTag}</p>
                       </div>

@@ -18,11 +18,7 @@ export default async function LeaderboardPage() {
   const top = await prisma.clanListing
     .findMany({
       where: { status: "ACTIVE" },
-      orderBy: [
-        { warWinStreak: "desc" },
-        { warWins: "desc" },
-        { memberCount: "desc" },
-      ],
+      orderBy: [{ warWinStreak: "desc" }, { warWins: "desc" }, { memberCount: "desc" }],
       take: 50,
       select: {
         id: true,
@@ -92,9 +88,7 @@ export default async function LeaderboardPage() {
                           {c.verifiedAt ? (
                             <ShieldCheck className="text-primary size-4 shrink-0" />
                           ) : null}
-                          {isBoosted ? (
-                            <Sparkles className="text-primary size-4 shrink-0" />
-                          ) : null}
+                          {isBoosted ? <Sparkles className="text-primary size-4 shrink-0" /> : null}
                         </div>
                         <p className="text-muted-foreground font-mono text-xs">{c.clanTag}</p>
                       </div>

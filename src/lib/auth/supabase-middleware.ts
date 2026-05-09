@@ -8,9 +8,14 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function updateSupabaseSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  // Supabase yapılandırılmamışsa middleware no-op — local dev için.
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return response;
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {

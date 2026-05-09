@@ -1,0 +1,63 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "TBD" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img [ref=e5]
+        - generic [ref=e7]: TBD
+      - navigation [ref=e8]:
+        - link "Klanlar" [ref=e9] [cursor=pointer]:
+          - /url: /klanlar
+        - link "Oyuncular" [ref=e10] [cursor=pointer]:
+          - /url: /oyuncular
+      - generic [ref=e11]:
+        - link "İlan ver" [ref=e12] [cursor=pointer]:
+          - /url: /ilan-ver
+        - link "Giriş" [ref=e13] [cursor=pointer]:
+          - /url: /giris
+          - img
+          - generic [ref=e14]: Giriş
+        - button "Aydınlık moda geç" [ref=e15]:
+          - img
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]: Türkiye CoC topluluğu için
+        - heading "Türkiye'nin CoC klan evi" [level=1] [ref=e20]
+        - paragraph [ref=e21]: Sana uygun klanı bul, oyuncu ararken zaman kaybetme.
+        - generic [ref=e22]:
+          - link "Klan bul" [ref=e23] [cursor=pointer]:
+            - /url: /klanlar
+          - link "İlanını ver" [ref=e24] [cursor=pointer]:
+            - /url: /ilan-ver
+      - generic [ref=e25]:
+        - generic [ref=e27]:
+          - img [ref=e28]
+          - heading "Doğru klan, hızlı eşleşme" [level=3] [ref=e31]
+          - paragraph [ref=e32]: TH, kupa, savaş sıklığı ve dil filtreleriyle saniyeler içinde sana uygun klanı bul.
+        - generic [ref=e34]:
+          - img [ref=e35]
+          - heading "Türkçe ve güvenilir" [level=3] [ref=e38]
+          - paragraph [ref=e39]: İlanlar moderasyondan geçer, klan etiketleri CoC API ile doğrulanır. Hayalet klanlar yok.
+        - generic [ref=e41]:
+          - img [ref=e42]
+          - heading "Mobil-öncelikli" [level=3] [ref=e45]
+          - paragraph [ref=e46]: Telefonundan rahatça gez, ilan ver, başvur. Discord ya da WhatsApp'ı sürükle bırak.
+  - contentinfo [ref=e47]:
+    - generic [ref=e48]:
+      - navigation [ref=e49]:
+        - link "Hakkında" [ref=e50] [cursor=pointer]:
+          - /url: /hakkinda
+        - link "Gizlilik" [ref=e51] [cursor=pointer]:
+          - /url: /gizlilik
+        - link "Kullanım Şartları" [ref=e52] [cursor=pointer]:
+          - /url: /sartlar
+        - link "KVKK" [ref=e53] [cursor=pointer]:
+          - /url: /kvkk
+      - paragraph [ref=e54]:
+        - text: Bu içerik, Supercell tarafından onaylanmamıştır ve Supercell'in görüşlerini ya da resmî tutumunu yansıtmaz.
+        - link "Supercell Fan Content Politikası" [ref=e55] [cursor=pointer]:
+          - /url: https://supercell.com/en/fan-content-policy/
+        - text: .
+  - region "Notifications alt+T"
+  - alert [ref=e56]

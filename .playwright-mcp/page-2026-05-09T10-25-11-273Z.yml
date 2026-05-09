@@ -1,0 +1,54 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "TBD" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img [ref=e5]
+        - generic [ref=e7]: TBD
+      - navigation [ref=e8]:
+        - link "Klanlar" [ref=e9] [cursor=pointer]:
+          - /url: /klanlar
+        - link "Oyuncular" [ref=e10] [cursor=pointer]:
+          - /url: /oyuncular
+      - generic [ref=e11]:
+        - link "İlan ver" [ref=e12] [cursor=pointer]:
+          - /url: /ilan-ver
+        - link "Giriş" [ref=e13] [cursor=pointer]:
+          - /url: /giris
+          - img
+          - generic [ref=e14]: Giriş
+        - button "Karanlık moda geç" [ref=e15]:
+          - img
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]: Giriş yap
+        - generic [ref=e21]: Magic link veya Discord ile saniyeler içinde gir. Şifre yok, kayıp olmaz.
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - generic [ref=e26]: E-posta
+            - textbox "E-posta" [ref=e27]:
+              - /placeholder: ornek@eposta.com
+          - button "Magic link gönder" [ref=e28]
+        - generic [ref=e33]: veya
+        - button "Discord ile giriş yap" [ref=e35]
+  - contentinfo [ref=e36]:
+    - generic [ref=e37]:
+      - navigation [ref=e38]:
+        - link "Hakkında" [ref=e39] [cursor=pointer]:
+          - /url: /hakkinda
+        - link "Gizlilik" [ref=e40] [cursor=pointer]:
+          - /url: /gizlilik
+        - link "Kullanım Şartları" [ref=e41] [cursor=pointer]:
+          - /url: /sartlar
+        - link "KVKK" [ref=e42] [cursor=pointer]:
+          - /url: /kvkk
+      - paragraph [ref=e43]:
+        - text: Bu içerik, Supercell tarafından onaylanmamıştır ve Supercell'in görüşlerini ya da resmî tutumunu yansıtmaz.
+        - link "Supercell Fan Content Politikası" [ref=e44] [cursor=pointer]:
+          - /url: https://supercell.com/en/fan-content-policy/
+        - text: .
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e50] [cursor=pointer]:
+    - img [ref=e51]

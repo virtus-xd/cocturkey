@@ -1,0 +1,76 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "TBD" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img [ref=e5]
+        - generic [ref=e7]: TBD
+      - navigation [ref=e8]:
+        - link "Klanlar" [ref=e9] [cursor=pointer]:
+          - /url: /klanlar
+        - link "Oyuncular" [ref=e10] [cursor=pointer]:
+          - /url: /oyuncular
+      - generic [ref=e11]:
+        - link "İlan ver" [ref=e12] [cursor=pointer]:
+          - /url: /ilan-ver
+        - link "Giriş" [ref=e13] [cursor=pointer]:
+          - /url: /giris
+          - img
+          - generic [ref=e14]: Giriş
+        - button "Karanlık moda geç" [ref=e15]:
+          - img
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - heading "Klanlar" [level=1] [ref=e19]
+        - paragraph [ref=e20]: Sana uygun Türk klanını bul. Filtreler URL'de saklanır.
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]: Klan adı
+            - generic [ref=e26]:
+              - img [ref=e27]
+              - textbox "Klan adı" [ref=e30]:
+                - /placeholder: ara…
+          - generic [ref=e31]:
+            - generic [ref=e32]: Min TH
+            - spinbutton "Min TH" [ref=e33]
+          - generic [ref=e34]:
+            - generic [ref=e35]: Min kupa
+            - spinbutton "Min kupa" [ref=e36]
+          - generic [ref=e37]:
+            - generic [ref=e38]: Etiket
+            - textbox "Etiket" [ref=e39]:
+              - /placeholder: war-odaklı
+          - generic [ref=e40]:
+            - generic [ref=e41]: Savaş sıklığı
+            - combobox "Savaş sıklığı" [ref=e42]:
+              - img
+            - combobox [ref=e43]
+        - generic [ref=e44]:
+          - paragraph [ref=e45]: Filtreler URL'de saklanır, paylaşabilirsin.
+          - button "Sıfırla" [ref=e46]
+      - paragraph [ref=e48]:
+        - text: Bu filtrelere uyan klan yok. Filtreleri gevşet ya da
+        - link "ilk ilanı sen ver" [ref=e49] [cursor=pointer]:
+          - /url: /ilan-ver
+        - text: .
+  - contentinfo [ref=e50]:
+    - generic [ref=e51]:
+      - navigation [ref=e52]:
+        - link "Hakkında" [ref=e53] [cursor=pointer]:
+          - /url: /hakkinda
+        - link "Gizlilik" [ref=e54] [cursor=pointer]:
+          - /url: /gizlilik
+        - link "Kullanım Şartları" [ref=e55] [cursor=pointer]:
+          - /url: /sartlar
+        - link "KVKK" [ref=e56] [cursor=pointer]:
+          - /url: /kvkk
+      - paragraph [ref=e57]:
+        - text: Bu içerik, Supercell tarafından onaylanmamıştır ve Supercell'in görüşlerini ya da resmî tutumunu yansıtmaz.
+        - link "Supercell Fan Content Politikası" [ref=e58] [cursor=pointer]:
+          - /url: https://supercell.com/en/fan-content-policy/
+        - text: .
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e64] [cursor=pointer]:
+    - img [ref=e65]

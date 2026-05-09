@@ -24,7 +24,7 @@ export default async function AdminReportsPage() {
   if (reports.length === 0) {
     return (
       <Card>
-        <CardContent className="py-12 text-center text-muted-foreground">
+        <CardContent className="text-muted-foreground py-12 text-center">
           Sırada bekleyen rapor yok. Bravo.
         </CardContent>
       </Card>

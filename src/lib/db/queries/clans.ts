@@ -85,9 +85,7 @@ export async function getClanListingByTag(clanTag: string) {
   });
 }
 
-export type ClanWithVerification = NonNullable<
-  Awaited<ReturnType<typeof getClanListingByTag>>
->;
+export type ClanWithVerification = NonNullable<Awaited<ReturnType<typeof getClanListingByTag>>>;
 
 /** Her görüntülemede view counter'ı +1 yapar (fire-and-forget). */
 export async function bumpClanViewCount(clanListingId: string) {

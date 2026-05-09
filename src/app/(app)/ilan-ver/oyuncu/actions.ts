@@ -68,9 +68,10 @@ export async function createPlayerListing(formData: FormData): Promise<CreateRes
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Form hatalı." };
   }
   const input = parsed.data;
-  const playerTag = input.cocPlayerTag && input.cocPlayerTag.length > 0
-    ? normalizeCocTag(input.cocPlayerTag)
-    : null;
+  const playerTag =
+    input.cocPlayerTag && input.cocPlayerTag.length > 0
+      ? normalizeCocTag(input.cocPlayerTag)
+      : null;
 
   // Aynı kullanıcı için aktif PlayerListing varsa onu güncelle (tek aktif ilan)
   const existing = await prisma.playerListing.findFirst({
@@ -109,7 +110,10 @@ export async function createPlayerListing(formData: FormData): Promise<CreateRes
     } catch (e) {
       // cocPlayerTag unique kontrolü
       console.error(e);
-      return { ok: false, error: "İlan oluşturulamadı. Etiket başka biri tarafından kullanılıyor olabilir." };
+      return {
+        ok: false,
+        error: "İlan oluşturulamadı. Etiket başka biri tarafından kullanılıyor olabilir.",
+      };
     }
   }
 

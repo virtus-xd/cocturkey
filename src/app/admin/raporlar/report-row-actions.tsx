@@ -46,9 +46,7 @@ export function ReportRowActions({
         <Button
           size="sm"
           variant="destructive"
-          onClick={() =>
-            run(() => setClanListingStatus(clanListingId, "BANNED"), "İlan banlandı")
-          }
+          onClick={() => run(() => setClanListingStatus(clanListingId, "BANNED"), "İlan banlandı")}
           disabled={pending}
         >
           İlanı banla

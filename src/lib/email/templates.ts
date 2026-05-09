@@ -14,7 +14,10 @@ type ApplicationReceivedArgs = {
 export function applicationReceivedTemplate(args: ApplicationReceivedArgs) {
   const url = `${SITE.url}/klanlar/${encodeURIComponent(args.clanTag)}`;
   const safe = (s: string) =>
-    s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+    s.replace(
+      /[&<>"']/g,
+      (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!,
+    );
   return {
     subject: `${args.clanName} klanına yeni başvuru: ${args.applicantName}`,
     html: `

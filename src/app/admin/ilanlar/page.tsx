@@ -61,11 +61,7 @@ export default async function AdminListingsPage() {
                   <Badge variant={c.status === "ACTIVE" ? "default" : "secondary"}>
                     {c.status}
                   </Badge>
-                  <ListingStatusActions
-                    type="clan"
-                    id={c.id}
-                    banned={c.status === "BANNED"}
-                  />
+                  <ListingStatusActions type="clan" id={c.id} banned={c.status === "BANNED"} />
                 </CardContent>
               </Card>
             </li>
@@ -95,11 +91,7 @@ export default async function AdminListingsPage() {
                   <Badge variant={p.status === "ACTIVE" ? "default" : "secondary"}>
                     {p.status}
                   </Badge>
-                  <ListingStatusActions
-                    type="player"
-                    id={p.id}
-                    banned={p.status === "BANNED"}
-                  />
+                  <ListingStatusActions type="player" id={p.id} banned={p.status === "BANNED"} />
                 </CardContent>
               </Card>
             </li>

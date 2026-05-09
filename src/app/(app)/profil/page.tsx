@@ -72,7 +72,11 @@ export default async function ProfilePage() {
         </div>
 
         {clanListings.length === 0 ? (
-          <EmptyCard text="Henüz klan ilanı açmamışsın." href="/ilan-ver/klan" link="İlk ilanı şimdi ver." />
+          <EmptyCard
+            text="Henüz klan ilanı açmamışsın."
+            href="/ilan-ver/klan"
+            link="İlk ilanı şimdi ver."
+          />
         ) : (
           <ul className="space-y-3">
             {clanListings.map((l) => (

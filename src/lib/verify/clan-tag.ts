@@ -22,9 +22,7 @@ function generateCode(): string {
   return `KLN-${out}`;
 }
 
-type Result =
-  | { ok: true; code: string; expiresAt: Date }
-  | { ok: false; error: string };
+type Result = { ok: true; code: string; expiresAt: Date } | { ok: false; error: string };
 
 export async function requestVerificationCode(clanListingId: string): Promise<Result> {
   const session = await requireSession();

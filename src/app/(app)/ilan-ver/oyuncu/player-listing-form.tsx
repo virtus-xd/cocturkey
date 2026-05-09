@@ -111,8 +111,8 @@ export function PlayerListingForm() {
               </Button>
             </div>
             <p className="text-muted-foreground text-xs">
-              Etiketini verirsen TH, kupa ve hero level'larını biz çekeriz. Vermek istemezsen
-              elle doldurabilirsin.
+              Etiketini verirsen TH, kupa ve hero level'larını biz çekeriz. Vermek istemezsen elle
+              doldurabilirsin.
             </p>
           </div>
         </CardContent>

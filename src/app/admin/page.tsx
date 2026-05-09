@@ -35,7 +35,7 @@ export default async function AdminDashboardPage() {
       {stats.map((s) => (
         <Card key={s.label}>
           <CardHeader>
-            <CardTitle className="text-sm text-muted-foreground">{s.label}</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm">{s.label}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">{s.value.toLocaleString("tr-TR")}</p>

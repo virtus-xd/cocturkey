@@ -12,12 +12,7 @@ export const playerTagSchema = z
   .toUpperCase()
   .regex(CLAN_TAG_REGEX, "Geçerli bir oyuncu etiketi girin (örn. #ABC123).");
 
-const optionalUrl = z
-  .string()
-  .trim()
-  .url("Geçerli bir bağlantı gir.")
-  .optional()
-  .or(z.literal(""));
+const optionalUrl = z.string().trim().url("Geçerli bir bağlantı gir.").optional().or(z.literal(""));
 
 export const createPlayerListingSchema = z.object({
   cocPlayerTag: playerTagSchema.optional().or(z.literal("")),

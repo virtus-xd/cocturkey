@@ -7,9 +7,7 @@ import { warFrequencyLabel } from "@/lib/coc/mappers";
 import type { PlayerListItem } from "@/lib/db/queries/players";
 
 export function PlayerCard({ player }: { player: PlayerListItem }) {
-  const heroes = player.heroLevels as
-    | { BK?: number; AQ?: number; GW?: number; RC?: number }
-    | null;
+  const heroes = player.heroLevels as { BK?: number; AQ?: number; GW?: number; RC?: number } | null;
 
   return (
     <Link
@@ -47,8 +45,12 @@ export function PlayerCard({ player }: { player: PlayerListItem }) {
             <span>{warFrequencyLabel(player.preferredWarFreq)}</span>
             {heroes ? (
               <span>
-                {[heroes.BK && `BK ${heroes.BK}`, heroes.AQ && `AQ ${heroes.AQ}`,
-                  heroes.GW && `GW ${heroes.GW}`, heroes.RC && `RC ${heroes.RC}`]
+                {[
+                  heroes.BK && `BK ${heroes.BK}`,
+                  heroes.AQ && `AQ ${heroes.AQ}`,
+                  heroes.GW && `GW ${heroes.GW}`,
+                  heroes.RC && `RC ${heroes.RC}`,
+                ]
                   .filter(Boolean)
                   .join(" · ")}
               </span>

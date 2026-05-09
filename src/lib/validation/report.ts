@@ -25,7 +25,12 @@ export const createReportSchema = z
     clanListingId: z.string().min(1).optional(),
     playerListingId: z.string().min(1).optional(),
     reason: reportReasonEnum,
-    details: z.string().trim().max(500, "Açıklama en fazla 500 karakter.").optional().or(z.literal("")),
+    details: z
+      .string()
+      .trim()
+      .max(500, "Açıklama en fazla 500 karakter.")
+      .optional()
+      .or(z.literal("")),
   })
   .refine((d) => Boolean(d.clanListingId) !== Boolean(d.playerListingId), {
     message: "Tek bir hedef belirtilmeli (klan veya oyuncu).",

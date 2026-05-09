@@ -33,9 +33,7 @@ export default async function PlayerDetailPage({ params }: Props) {
   const session = await getSessionUser().catch(() => null);
   const isOwner = session?.app.id === player.ownerId;
 
-  const heroes = player.heroLevels as
-    | { BK?: number; AQ?: number; GW?: number; RC?: number }
-    | null;
+  const heroes = player.heroLevels as { BK?: number; AQ?: number; GW?: number; RC?: number } | null;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
@@ -66,7 +64,7 @@ export default async function PlayerDetailPage({ params }: Props) {
 
       {heroes ? (
         <section className="mt-6">
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <h2 className="text-muted-foreground mb-3 text-sm font-semibold tracking-wide uppercase">
             Hero seviyeleri
           </h2>
           <div className="grid grid-cols-4 gap-2 text-center">

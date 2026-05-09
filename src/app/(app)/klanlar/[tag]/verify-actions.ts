@@ -1,9 +1,6 @@
 "use server";
 
-import {
-  checkVerificationCode,
-  requestVerificationCode,
-} from "@/lib/verify/clan-tag";
+import { checkVerificationCode, requestVerificationCode } from "@/lib/verify/clan-tag";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db/prisma";
 

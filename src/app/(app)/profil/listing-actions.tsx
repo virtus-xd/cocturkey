@@ -6,20 +6,9 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 
-import {
-  bumpClanListing,
-  bumpPlayerListing,
-  pauseClanListing,
-  resumeClanListing,
-} from "./actions";
+import { bumpClanListing, bumpPlayerListing, pauseClanListing, resumeClanListing } from "./actions";
 
-export function BumpButton({
-  id,
-  type,
-}: {
-  id: string;
-  type: "clan" | "player";
-}) {
+export function BumpButton({ id, type }: { id: string; type: "clan" | "player" }) {
   const [pending, startTransition] = useTransition();
   return (
     <Button
@@ -42,13 +31,7 @@ export function BumpButton({
   );
 }
 
-export function PauseResumeButton({
-  id,
-  active,
-}: {
-  id: string;
-  active: boolean;
-}) {
+export function PauseResumeButton({ id, active }: { id: string; active: boolean }) {
   const [pending, startTransition] = useTransition();
   return (
     <Button

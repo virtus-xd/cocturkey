@@ -4,12 +4,7 @@
 // Kullanım sırası: önce Supabase + Prisma migrate kurulumu, sonra bu seed.
 // Üretimde (NODE_ENV=production) çalıştırma — gerçek kullanıcı verisini ezme riski.
 
-import {
-  ListingStatus,
-  PrismaClient,
-  UserRole,
-  WarFrequency,
-} from "@prisma/client";
+import { ListingStatus, PrismaClient, UserRole, WarFrequency } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -119,8 +114,7 @@ async function main() {
       memberCount: 42,
       requiredTH: 12,
       requiredTrophies: 2800,
-      customDescription:
-        "Sürekli war modu. CWL Crystal 1. Aktif kalmazsan çıkarılırsın, uyaralım.",
+      customDescription: "Sürekli war modu. CWL Crystal 1. Aktif kalmazsan çıkarılırsın, uyaralım.",
       activeHours: "19:00-22:00",
       tags: ["rekabetçi", "war-odaklı"],
       verified: true,
@@ -155,8 +149,7 @@ async function main() {
     ingameName: "ErdemTR",
     thLevel: 14,
     trophies: 4920,
-    bio:
-      "TH14, BK 75 / AQ 80 / GW 55. Aktif war atarım, küfürsüz ortam isterim. Akşam 20-23 arası en aktif.",
+    bio: "TH14, BK 75 / AQ 80 / GW 55. Aktif war atarım, küfürsüz ortam isterim. Akşam 20-23 arası en aktif.",
     preferredWarFreq: WarFrequency.MORE_THAN_ONCE_PER_WEEK,
     activeHours: "20:00-23:00",
     lookingFor: ["war-clan", "yetişkin", "küfürsüz"],
@@ -211,8 +204,13 @@ async function main() {
     });
   }
 
-  console.log("✅ Tamam: 1 admin (%s), %d klan lideri, %d oyuncu, %d klan ilanı seed edildi.",
-    adminUser.email, owners.length, players.length, clans.length);
+  console.log(
+    "✅ Tamam: 1 admin (%s), %d klan lideri, %d oyuncu, %d klan ilanı seed edildi.",
+    adminUser.email,
+    owners.length,
+    players.length,
+    clans.length,
+  );
 }
 
 async function upsertUser(id: string, email: string, username: string) {

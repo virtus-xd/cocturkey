@@ -445,14 +445,14 @@ Bu **görmezden gelinemez** kurallardır. Her özellik tasarlanırken kontrol ed
 - [x] Arama — klan adı + etiket; oyuncu adı + lookingFor
 - [x] SEO temel — Faz 1'de yapıldı; Faz 2'de sitemap'e oyuncu ilanları eklendi
 
-### Faz 3 — Topluluk Genişlemesi (3-4 hafta)
+### Faz 3 — Topluluk Genişlemesi (3-4 hafta) — `~%70 tamam`
 
-- [ ] Discord botu (yeni ilanları otomatik kanala atar)
-- [ ] Klan profil sayfası zenginleştirme (savaş geçmişi grafiği)
-- [ ] "Boost" özelliği (ilan öne çıkarma — bağış karşılığı)
-- [ ] Lider tablosu (en aktif klanlar)
-- [ ] Kullanıcı profil sayfaları
-- [ ] Detaylı analytics dashboard (sadece klan sahibi görür)
+- [-] Discord botu — webhook entegrasyonu yapıldı (klan sahibi profilden kendi sunucusunun webhook URL'ini ekler; başvuru gelince embed atılır). Tam bot (slash commands, otomatik feed) sonraki iterasyonda.
+- [ ] Klan profil sayfası zenginleştirme (savaş geçmişi grafiği) — CoC API war log endpoint'i ve proxy genişletmesi gerekli
+- [x] "Boost" özelliği — `boostedUntil` alanı + admin toggle (7 gün) + sort'ta öncelik + `Sparkles` rozeti
+- [x] Lider tablosu (`/lider-tablosu`) — win streak + war wins + member count'a göre top 50
+- [x] Kullanıcı profil sayfaları (`/u/[username]`) — public, açık ilanlar + verified/role rozetleri
+- [ ] Detaylı analytics dashboard (sadece klan sahibi görür) — view counter var, daha derin event tracking gerek
 
 ### Faz 4 — Yenilikçi (sonra)
 
@@ -670,5 +670,7 @@ NODE_ENV=development
 | 2026-05-09 | Faz 0 kod iskeleti kuruldu: Next 16 + Tailwind v4 + shadcn/ui (Radix/Nova) + Prisma 7 + tooling (Prettier/Husky/lint-staged/Vitest). Stack güncellendi (Next 15 → 16, Prisma 7 datasource config).                                                                                                                                                |
 | 2026-05-09 | Faz 1 MVP core tamam: Supabase Auth (server actions + middleware), klan ilanı/liste/filtre/detay/başvuru akışları, profil sayfası, CoC proxy iskeleti, SEO (robots/sitemap/manifest/OG), Sentry skeleton. Prisma 7 driver adapter (@prisma/adapter-pg) + lazy Proxy. 21/21 unit test geçer.                                                       |
 | 2026-05-09 | Faz 2 kullanılabilirlik tamam: oyuncu ilanları (`/oyuncular`, `/ilan-ver/oyuncu`), bump/pause aksiyonları (24h cooldown), Resend e-posta (dev fallback), şikayet sistemi (`ReportDialog` + duplicate/rate guard), admin paneli (rol guard + rapor kuyruğu + ilan ban), klan tag doğrulama (oyun içi açıklamaya 6-karakter kod). 29/29 test geçer. |
+| 2026-05-09 | Lansmana hazırlık: demo seed (5 klan + 3 oyuncu + 1 admin, idempotent), `pnpm promote:admin` CLI, README'de adım-adım Supabase/DigitalOcean/Vercel rehberi, eksik env etkisi tablosu, ClanCard verified rozeti. Local dev env'siz çalışır (middleware/auth no-op). |
+| 2026-05-09 | Faz 3 kısmen: boost (admin toggle, sort önceliği, Sparkles rozeti), lider tablosu (`/lider-tablosu`), public profil (`/u/[username]`), Discord webhook entegrasyonu (kullanıcı kendi sunucusuna ekler). Discord bot (slash commands), war log grafiği, derin analytics dashboard sonraki iterasyonda. |
 
 > **Not:** Bu dosya proje boyunca yaşar. Her büyük karar burada yansıtılır. Karar değiştiyse eski karar silinmez, üstü çizilir veya yeniden yazılır.

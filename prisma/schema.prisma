@@ -22,6 +22,9 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  // Bildirim kanalı: kullanıcı kendi sunucusuna webhook ekler.
+  discordWebhookUrl String?
+
   clanListings   ClanListing[]
   playerListings PlayerListing[]
   applications   Application[]
@@ -76,6 +79,9 @@ model ClanListing {
   verifiedAt        DateTime?
   verificationCode  String? // aktif geçici kod
   verificationExpiresAt DateTime?
+
+  // Boost (öne çıkarma) — admin tarafından süre belirlenir
+  boostedUntil DateTime?
 
   applications Application[]
   reports      Report[]

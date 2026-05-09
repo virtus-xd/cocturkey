@@ -9,6 +9,7 @@ import { t } from "@/i18n";
 const navItems = [
   { href: "/klanlar", label: t("nav.clans") },
   { href: "/oyuncular", label: t("nav.players") },
+  { href: "/lider-tablosu", label: "Lider Tablosu" },
 ] as const;
 
 export function Header() {

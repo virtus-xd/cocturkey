@@ -17,6 +17,7 @@ export default async function AdminListingsPage() {
         clanTag: true,
         status: true,
         memberCount: true,
+        boostedUntil: true,
         createdAt: true,
         owner: { select: { username: true } },
         _count: { select: { reports: true } },
@@ -61,7 +62,12 @@ export default async function AdminListingsPage() {
                   <Badge variant={c.status === "ACTIVE" ? "default" : "secondary"}>
                     {c.status}
                   </Badge>
-                  <ListingStatusActions type="clan" id={c.id} banned={c.status === "BANNED"} />
+                  <ListingStatusActions
+                    type="clan"
+                    id={c.id}
+                    banned={c.status === "BANNED"}
+                    boosted={Boolean(c.boostedUntil && c.boostedUntil > new Date())}
+                  />
                 </CardContent>
               </Card>
             </li>

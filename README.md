@@ -53,13 +53,13 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 Diğer servisler opsiyonel: olmadığında ilgili özellik no-op olur:
 
-| Eksik env | Etki |
-|---|---|
-| `RESEND_API_KEY` | Başvuru e-postaları console.log'a düşer |
+| Eksik env                            | Etki                                           |
+| ------------------------------------ | ---------------------------------------------- |
+| `RESEND_API_KEY`                     | Başvuru e-postaları console.log'a düşer        |
 | `COC_PROXY_URL` + `COC_PROXY_SECRET` | Dev'de mock fixture (`#TR2025` vs.) kullanılır |
-| `SENTRY_DSN` | Hata izleme yok |
-| `UPSTASH_REDIS_REST_URL/TOKEN` | Cache yok (proxy tarafında) |
-| `TURNSTILE_*` | Captcha yok |
+| `SENTRY_DSN`                         | Hata izleme yok                                |
+| `UPSTASH_REDIS_REST_URL/TOKEN`       | Cache yok (proxy tarafında)                    |
+| `TURNSTILE_*`                        | Captcha yok                                    |
 
 ### 4. Veritabanı migration + seed
 
@@ -82,6 +82,7 @@ Bu kullanıcı artık `/admin` panele girebilir. (Seed çalıştırdıysan `erde
 ### 6. CoC API proxy (üretim için)
 
 `coc-proxy/README.md`'ye bak. Özet:
+
 - DigitalOcean droplet ($6/ay) → sabit IP
 - `developer.clashofclans.com` → API key + droplet IP whitelist
 - Droplet'te `docker build && docker run`
@@ -99,20 +100,20 @@ Lokal geliştirme için proxy zorunlu değil — mock fixture devreye girer.
 
 ## Komutlar
 
-| Komut                | Ne yapar                        |
-| -------------------- | ------------------------------- |
-| `pnpm dev`           | Geliştirme sunucusu             |
-| `pnpm build`         | Üretim için derler              |
-| `pnpm start`         | Üretim sunucusunu çalıştırır    |
-| `pnpm lint`          | ESLint                          |
-| `pnpm typecheck`     | TypeScript tip kontrolü         |
-| `pnpm format`        | Prettier ile biçimlendirir      |
-| `pnpm test`          | Vitest unit testleri            |
-| `pnpm db:migrate`    | Prisma migrate (dev)            |
-| `pnpm db:deploy`     | Prisma migrate (production)     |
-| `pnpm db:studio`     | Prisma Studio (DB tarayıcı)     |
-| `pnpm db:seed`       | Demo veriyi yükler              |
-| `pnpm promote:admin` | Bir kullanıcıyı ADMIN yapar     |
+| Komut                | Ne yapar                     |
+| -------------------- | ---------------------------- |
+| `pnpm dev`           | Geliştirme sunucusu          |
+| `pnpm build`         | Üretim için derler           |
+| `pnpm start`         | Üretim sunucusunu çalıştırır |
+| `pnpm lint`          | ESLint                       |
+| `pnpm typecheck`     | TypeScript tip kontrolü      |
+| `pnpm format`        | Prettier ile biçimlendirir   |
+| `pnpm test`          | Vitest unit testleri         |
+| `pnpm db:migrate`    | Prisma migrate (dev)         |
+| `pnpm db:deploy`     | Prisma migrate (production)  |
+| `pnpm db:studio`     | Prisma Studio (DB tarayıcı)  |
+| `pnpm db:seed`       | Demo veriyi yükler           |
+| `pnpm promote:admin` | Bir kullanıcıyı ADMIN yapar  |
 
 ## Yığın
 

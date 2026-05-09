@@ -8,6 +8,7 @@ import { requireSession } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
 
 import { BumpButton, PauseResumeButton } from "./listing-actions";
+import { WebhookForm } from "./webhook-form";
 
 export const metadata: Metadata = {
   title: "Profil",
@@ -194,11 +195,31 @@ export default async function ProfilePage() {
 
       <Card>
         <CardHeader>
+          <CardTitle>Bildirim ayarları</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <WebhookForm defaultValue={session.app.discordWebhookUrl} />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
           <CardTitle>Hesabın</CardTitle>
         </CardHeader>
         <CardContent className="text-muted-foreground space-y-2 text-sm">
           <p>Discord bağlı: {session.app.discordId ? "Evet" : "Hayır"}</p>
           <p>Doğrulanmış: {session.app.isVerified ? "Evet" : "Henüz değil"}</p>
+          <p>
+            Public profil:{" "}
+            <Link
+              href={`/u/${session.app.username}`}
+              className="underline underline-offset-2"
+              target="_blank"
+              rel="noopener"
+            >
+              /u/{session.app.username}
+            </Link>
+          </p>
           <form action="/auth/sign-out" method="post">
             <Button type="submit" variant="outline" size="sm">
               Çıkış yap

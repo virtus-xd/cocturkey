@@ -10,6 +10,7 @@ import { cocClient, cocErrorToUserMessage } from "@/lib/coc/client";
 import { mapWarFrequency } from "@/lib/coc/mappers";
 import { sendEmail } from "@/lib/email/client";
 import { applicationReceivedTemplate } from "@/lib/email/templates";
+import { sendApplicationDiscord } from "@/lib/notifications/discord";
 import { createApplicationSchema } from "@/lib/validation/clan";
 
 type ApplyResult = { ok: true } | { ok: false; error: string };
@@ -33,7 +34,7 @@ export async function applyToClan(formData: FormData): Promise<ApplyResult> {
       status: true,
       clanTag: true,
       name: true,
-      owner: { select: { email: true, username: true } },
+      owner: { select: { email: true, username: true, discordWebhookUrl: true } },
     },
   });
   if (!listing || listing.status !== "ACTIVE") {
@@ -61,18 +62,27 @@ export async function applyToClan(formData: FormData): Promise<ApplyResult> {
     throw e;
   }
 
-  // Klan sahibine e-posta — fire-and-forget, sonuç başvuruyu engellemesin.
+  // Klan sahibine bildirim — e-posta + (varsa) Discord. Fire-and-forget.
+  const notifPayload = {
+    clanName: listing.name,
+    clanTag: listing.clanTag,
+    applicantName: session.app.username,
+    applicantMessage: parsed.data.message,
+  };
   void sendEmail({
     to: listing.owner.email,
     ...applicationReceivedTemplate({
       ownerEmail: listing.owner.email,
       ownerName: listing.owner.username,
-      clanName: listing.name,
-      clanTag: listing.clanTag,
-      applicantName: session.app.username,
-      applicantMessage: parsed.data.message,
+      ...notifPayload,
     }),
   });
+  if (listing.owner.discordWebhookUrl) {
+    void sendApplicationDiscord({
+      webhookUrl: listing.owner.discordWebhookUrl,
+      ...notifPayload,
+    });
+  }
 
   revalidatePath(`/klanlar/${encodeURIComponent(listing.clanTag)}`);
   return { ok: true };

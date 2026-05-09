@@ -38,9 +38,11 @@ export async function listClanListings(filters: ClanListFilters) {
     ];
   }
 
+  // Boost'lu olanlar önce; sonra son bump'a göre. Süresi dolan boost
+  // sıralamayı etkilemesin diye where'da değil, sort tarafında null'lar sona.
   const items = await prisma.clanListing.findMany({
     where,
-    orderBy: [{ bumpedAt: "desc" }, { id: "desc" }],
+    orderBy: [{ boostedUntil: { sort: "desc", nulls: "last" } }, { bumpedAt: "desc" }, { id: "desc" }],
     take: LISTINGS_PAGE_SIZE + 1,
     ...(filters.cursor ? { cursor: { id: filters.cursor }, skip: 1 } : {}),
     select: {
@@ -62,6 +64,7 @@ export async function listClanListings(filters: ClanListFilters) {
       tags: true,
       bumpedAt: true,
       verifiedAt: true,
+      boostedUntil: true,
     },
   });
 

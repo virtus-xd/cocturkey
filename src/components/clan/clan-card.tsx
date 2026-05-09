@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ShieldCheck, Swords, Trophy, Users } from "lucide-react";
+import { ShieldCheck, Sparkles, Swords, Trophy, Users } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,12 +7,27 @@ import { warFrequencyLabel } from "@/lib/coc/mappers";
 import type { ClanListItem } from "@/lib/db/queries/clans";
 
 export function ClanCard({ clan }: { clan: ClanListItem }) {
+  // Server component'ta canlı saat meşru — purity uyarısını kapat.
+  // eslint-disable-next-line react-hooks/purity
+  const isBoosted = clan.boostedUntil && clan.boostedUntil.getTime() > Date.now();
   return (
     <Link
       href={`/klanlar/${encodeURIComponent(clan.clanTag)}`}
       className="block transition-transform hover:-translate-y-0.5"
     >
-      <Card className="hover:border-primary/50 h-full overflow-hidden transition-colors">
+      <Card
+        className={
+          isBoosted
+            ? "ring-primary/40 ring-1 hover:border-primary/50 h-full overflow-hidden transition-colors"
+            : "hover:border-primary/50 h-full overflow-hidden transition-colors"
+        }
+      >
+        {isBoosted ? (
+          <div className="bg-primary/10 text-primary flex items-center gap-1 px-4 py-1.5 text-xs font-medium">
+            <Sparkles className="size-3" />
+            Öne çıkan
+          </div>
+        ) : null}
         <CardContent className="space-y-3 p-4">
           <div className="flex items-start gap-3">
             {clan.badgeUrl ? (
@@ -31,10 +46,7 @@ export function ClanCard({ clan }: { clan: ClanListItem }) {
               <div className="flex items-center gap-1">
                 <h3 className="truncate font-semibold">{clan.name}</h3>
                 {clan.verifiedAt ? (
-                  <ShieldCheck
-                    className="text-primary size-4 shrink-0"
-                    aria-label="Doğrulanmış"
-                  />
+                  <ShieldCheck className="text-primary size-4 shrink-0" aria-label="Doğrulanmış" />
                 ) : null}
               </div>
               <p className="text-muted-foreground font-mono text-xs">{clan.clanTag}</p>

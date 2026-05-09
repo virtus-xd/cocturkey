@@ -41,3 +41,13 @@ export async function setPlayerListingStatus(
   revalidatePath("/oyuncular");
   return { ok: true };
 }
+
+export async function toggleBoost(id: string, days: number | null): Promise<Result> {
+  await requireRole(["MODERATOR", "ADMIN"]);
+  const boostedUntil =
+    days === null || days <= 0 ? null : new Date(Date.now() + days * 24 * 3_600_000);
+  await prisma.clanListing.update({ where: { id }, data: { boostedUntil } });
+  revalidatePath("/admin/ilanlar");
+  revalidatePath("/klanlar");
+  return { ok: true };
+}

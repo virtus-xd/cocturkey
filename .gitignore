@@ -54,3 +54,8 @@ next-env.d.ts
 # OS
 Thumbs.db
 ehthumbs.db
+
+# Playwright MCP geçici çıktılar
+/.playwright-mcp/
+/preview-*.png
+/preview-*.jpg

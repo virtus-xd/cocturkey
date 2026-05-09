@@ -61,6 +61,7 @@ export async function listClanListings(filters: ClanListFilters) {
       activeHours: true,
       tags: true,
       bumpedAt: true,
+      verifiedAt: true,
     },
   });
 

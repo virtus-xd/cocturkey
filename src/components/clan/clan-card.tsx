@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Swords, Trophy, Users } from "lucide-react";
+import { ShieldCheck, Swords, Trophy, Users } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -28,7 +28,15 @@ export function ClanCard({ clan }: { clan: ClanListItem }) {
               <div className="bg-muted size-12 shrink-0 rounded" />
             )}
             <div className="min-w-0 flex-1">
-              <h3 className="truncate font-semibold">{clan.name}</h3>
+              <div className="flex items-center gap-1">
+                <h3 className="truncate font-semibold">{clan.name}</h3>
+                {clan.verifiedAt ? (
+                  <ShieldCheck
+                    className="text-primary size-4 shrink-0"
+                    aria-label="Doğrulanmış"
+                  />
+                ) : null}
+              </div>
               <p className="text-muted-foreground font-mono text-xs">{clan.clanTag}</p>
             </div>
             <Badge variant="secondary" className="shrink-0">

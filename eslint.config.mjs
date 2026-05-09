@@ -5,14 +5,25 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
+  // Default ignores + projeye özel olanlar.
   globalIgnores([
-    // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Claude Code skill dosyaları lint kapsamı dışında.
+    ".claude/**",
+    // Üretilmiş veya bizim yazmadığımız.
+    "node_modules/**",
+    "coverage/**",
+    "src/components/ui/**",
   ]),
+  {
+    rules: {
+      // Türkçe içerikte apostrof yaygın; bu kural İngilizce odaklı stil tartışması.
+      "react/no-unescaped-entities": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

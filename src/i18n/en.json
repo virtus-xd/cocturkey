@@ -1,0 +1,46 @@
+{
+  "common": {
+    "appName": "TBD",
+    "tagline": "Turkey's Turkish-first, mobile-first CoC clan & player matchmaking platform",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "loading": "Loading…",
+    "error": "Something went wrong, try again in a moment.",
+    "search": "Search"
+  },
+  "nav": {
+    "clans": "Clans",
+    "players": "Players",
+    "createListing": "Post listing",
+    "profile": "Profile",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "footer": {
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "kvkk": "KVKK",
+    "fanContent": "This content is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.",
+    "fanContentLink": "Supercell Fan Content Policy"
+  },
+  "home": {
+    "hero": {
+      "title": "Turkey's CoC home",
+      "subtitle": "Find the right clan, stop wasting time looking for players.",
+      "ctaFindClan": "Find a clan",
+      "ctaPostListing": "Post your listing"
+    }
+  },
+  "empty": {
+    "noClansYet": "No clan listings yet. Post the first one!",
+    "noPlayersYet": "No player listings yet. Be the player they're looking for!"
+  },
+  "errors": {
+    "invalidClanTag": "Enter a valid clan tag (e.g. #2PP).",
+    "rateLimit": "Too many requests, please wait a moment.",
+    "cocApiDown": "Clan data is unavailable right now, please try again later."
+  }
+}

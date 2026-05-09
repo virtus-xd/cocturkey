@@ -1,0 +1,184 @@
+// CoC Klan Bulma Platformu — veritabanı şeması
+// Detaylı açıklamalar için bkz. CLAUDE.md §5
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Bağlantı URL'leri Prisma 7'den itibaren `prisma.config.ts`'te tanımlanır.
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Kullanıcı (site kullanıcısı) ────────────────────────
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  username     String   @unique
+  discordId    String?  @unique
+  cocPlayerTag String?  @unique // #ABC123 — opsiyonel doğrulama
+  isVerified   Boolean  @default(false)
+  role         UserRole @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  clanListings   ClanListing[]
+  playerListings PlayerListing[]
+  applications   Application[]
+  reports        Report[]        @relation("Reporter")
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+// ─── Klan İlanı ───────────────────────────────────────────
+model ClanListing {
+  id      String @id @default(cuid())
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  // CoC API'den gelen veriler (cache'lenir, periyodik refresh)
+  clanTag          String       @unique // örn. #2PP
+  name             String
+  level            Int
+  description      String?
+  trophies         Int
+  warFrequency     WarFrequency
+  warWinStreak     Int
+  warWins          Int
+  memberCount      Int
+  requiredTH       Int
+  requiredTrophies Int
+  badgeUrl         String?
+  lastSyncedAt     DateTime
+
+  // Site sahibinin eklediği özel veriler
+  customDescription String?  @db.Text // Türkçe tanıtım yazısı
+  language          String   @default("tr")
+  timezone          String   @default("Europe/Istanbul")
+  activeHours       String? // örn. "20:00-23:00"
+  discordInvite     String?
+  whatsappLink      String?
+  telegramLink      String?
+  tags              String[] // örn. ["aile-dostu", "rekabetçi", "war-odaklı"]
+
+  // Yönetimsel
+  status    ListingStatus @default(ACTIVE)
+  bumpedAt  DateTime      @default(now()) // sıralama için
+  viewCount Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  applications Application[]
+  reports      Report[]
+
+  @@index([status, bumpedAt])
+  @@index([requiredTH])
+}
+
+enum WarFrequency {
+  ALWAYS
+  MORE_THAN_ONCE_PER_WEEK
+  ONCE_PER_WEEK
+  LESS_THAN_ONCE_PER_WEEK
+  NEVER
+  ANY
+  UNKNOWN
+}
+
+enum ListingStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+  BANNED
+}
+
+// ─── Oyuncu İlanı ─────────────────────────────────────────
+model PlayerListing {
+  id      String @id @default(cuid())
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  cocPlayerTag String? @unique
+  ingameName   String
+  thLevel      Int
+  trophies     Int
+  heroLevels   Json? // örn. { "BK": 65, "AQ": 70, "GW": 50, "RC": 30 }
+
+  bio               String?      @db.Text
+  preferredWarFreq  WarFrequency
+  preferredLanguage String       @default("tr")
+  timezone          String       @default("Europe/Istanbul")
+  activeHours       String?
+  lookingFor        String[] // örn. ["war-clan", "casual", "cwl"]
+
+  status    ListingStatus @default(ACTIVE)
+  bumpedAt  DateTime      @default(now())
+  viewCount Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  reports Report[]
+
+  @@index([status, bumpedAt])
+  @@index([thLevel])
+}
+
+// ─── Başvuru ──────────────────────────────────────────────
+model Application {
+  id            String      @id @default(cuid())
+  applicantId   String
+  applicant     User        @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  clanListingId String
+  clanListing   ClanListing @relation(fields: [clanListingId], references: [id], onDelete: Cascade)
+  message       String      @db.Text
+  status        ApplicationStatus @default(PENDING)
+  createdAt     DateTime    @default(now())
+
+  @@unique([applicantId, clanListingId])
+  @@index([clanListingId, status])
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+// ─── Şikayet / Moderasyon ─────────────────────────────────
+model Report {
+  id              String         @id @default(cuid())
+  reporterId      String
+  reporter        User           @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  clanListingId   String?
+  clanListing     ClanListing?   @relation(fields: [clanListingId], references: [id], onDelete: SetNull)
+  playerListingId String?
+  playerListing   PlayerListing? @relation(fields: [playerListingId], references: [id], onDelete: SetNull)
+  reason          ReportReason
+  details         String?        @db.Text
+  status          ReportStatus   @default(OPEN)
+  createdAt       DateTime       @default(now())
+  resolvedAt      DateTime?
+
+  @@index([status, createdAt])
+}
+
+enum ReportReason {
+  SPAM
+  HARASSMENT
+  INAPPROPRIATE_CONTENT
+  FAKE_INFO
+  SCAM
+  OTHER
+}
+
+enum ReportStatus {
+  OPEN
+  IN_REVIEW
+  RESOLVED
+  DISMISSED
+}

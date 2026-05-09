@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Türkiye CoC Klan Bulma Platformu (geçici ad: coc-klan)
 
-## Getting Started
+Türkiye'deki Clash of Clans oyuncuları ve klan liderleri için Türkçe, mobil-öncelikli bir klan/oyuncu eşleştirme platformu.
 
-First, run the development server:
+> **Not:** "Clash of Clans" ifadesi nihai ürün/domain adında **kullanılmayacak** (Supercell Fan Content Policy gereği). Bu repo `coc-klan` adıyla geçici olarak duruyor.
+
+## Hızlı başlangıç
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Bağımlılıklar
+pnpm install
+
+# Ortam değişkenleri
+cp .env.example .env.local
+# .env.local'i düzenle (en azından DATABASE_URL ve DIRECT_URL gerekir)
+
+# Prisma şeması
+pnpm db:generate
+
+# Geliştirme sunucusu
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tarayıcıda <http://localhost:3000> adresini aç.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Komutlar
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Komut             | Ne yapar                     |
+| ----------------- | ---------------------------- |
+| `pnpm dev`        | Geliştirme sunucusu          |
+| `pnpm build`      | Üretim için derler           |
+| `pnpm start`      | Üretim sunucusunu çalıştırır |
+| `pnpm lint`       | ESLint                       |
+| `pnpm typecheck`  | TypeScript tip kontrolü      |
+| `pnpm format`     | Prettier ile biçimlendirir   |
+| `pnpm test`       | Vitest unit testleri         |
+| `pnpm db:migrate` | Prisma migrate (dev)         |
+| `pnpm db:studio`  | Prisma Studio                |
 
-## Learn More
+## Yığın
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** Next.js 16 (App Router) — dynamic routes, RSC.
+- **Dil:** TypeScript (strict).
+- **Styling:** Tailwind CSS v4 + shadcn/ui (Radix + Lucide + Geist).
+- **DB:** PostgreSQL (Supabase) + Prisma 7.
+- **Auth:** Supabase Auth (e-posta + Discord OAuth).
+- **State (server):** TanStack Query. **State (UI):** Zustand.
+- **CoC API:** kendi proxy servisimiz üzerinden (ayrı repo: `coc-proxy/`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Detaylı mimari, kararlar ve yol haritası için **[`CLAUDE.md`](./CLAUDE.md)** dosyasına bak — projedeki tek doğru kaynak.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Klasör yapısı
 
-## Deploy on Vercel
+```
+src/
+├── app/             # App Router rotaları
+│   ├── (marketing)/ # Public sayfalar (hakkında, gizlilik, ...)
+│   ├── (app)/       # Uygulama (klanlar, oyuncular, ilan ver, profil)
+│   └── api/         # API route'ları
+├── components/
+│   ├── ui/          # shadcn/ui bileşenleri
+│   ├── shared/      # Header, Footer, ThemeProvider
+│   ├── clan/        # Klan kartı vs.
+│   ├── player/      # Oyuncu kartı vs.
+│   └── filters/     # Filtre bileşenleri
+├── lib/
+│   ├── coc/         # CoC API client (proxy üzerinden)
+│   ├── db/          # Prisma client
+│   ├── auth/        # Auth helpers
+│   ├── validation/  # Zod şemaları
+│   └── utils.ts
+├── hooks/
+├── i18n/            # tr.json (varsayılan), en.json
+└── types/
+prisma/
+├── schema.prisma
+└── seed.ts
+tests/
+├── unit/
+└── e2e/
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Yasal
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Bu site Supercell tarafından onaylanmamıştır. Tüm Clash of Clans marka ve görselleri Supercell'e aittir. Detay: <https://supercell.com/en/fan-content-policy/>
+
+## Lisans
+
+Henüz belirlenmedi (private repo).

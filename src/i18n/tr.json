@@ -1,0 +1,46 @@
+{
+  "common": {
+    "appName": "TBD",
+    "tagline": "Türkiye'nin Türkçe ve mobil-öncelikli CoC klan/oyuncu eşleştirme platformu",
+    "submit": "Gönder",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "loading": "Yükleniyor…",
+    "error": "Bir şeyler ters gitti, birkaç saniye sonra tekrar dene.",
+    "search": "Ara"
+  },
+  "nav": {
+    "clans": "Klanlar",
+    "players": "Oyuncular",
+    "createListing": "İlan ver",
+    "profile": "Profil",
+    "signIn": "Giriş yap",
+    "signOut": "Çıkış"
+  },
+  "footer": {
+    "about": "Hakkında",
+    "privacy": "Gizlilik",
+    "terms": "Kullanım Şartları",
+    "kvkk": "KVKK",
+    "fanContent": "Bu içerik, Supercell tarafından onaylanmamıştır ve Supercell'in görüşlerini ya da resmî tutumunu yansıtmaz.",
+    "fanContentLink": "Supercell Fan Content Politikası"
+  },
+  "home": {
+    "hero": {
+      "title": "Türkiye'nin CoC klan evi",
+      "subtitle": "Sana uygun klanı bul, oyuncu ararken zaman kaybetme.",
+      "ctaFindClan": "Klan bul",
+      "ctaPostListing": "İlanını ver"
+    }
+  },
+  "empty": {
+    "noClansYet": "Henüz klan ilanı yok. İlk ilanı sen ver!",
+    "noPlayersYet": "Henüz oyuncu ilanı yok. Aranan oyuncu sen ol!"
+  },
+  "errors": {
+    "invalidClanTag": "Geçerli bir klan etiketi girin (örn. #2PP).",
+    "rateLimit": "Çok hızlı denedin, biraz bekle.",
+    "cocApiDown": "Klan verisi şu anda alınamıyor, lütfen daha sonra tekrar dene."
+  }
+}

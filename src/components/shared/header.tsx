@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Shield } from "lucide-react";
 
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { UserMenu } from "@/components/shared/user-menu";
 import { Button } from "@/components/ui/button";
 import { t } from "@/i18n";
 
@@ -27,10 +28,11 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link href="/ilan-ver">{t("nav.createListing")}</Link>
           </Button>
+          <UserMenu />
           <ThemeToggle />
         </div>
       </div>

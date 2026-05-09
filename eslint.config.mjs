@@ -17,6 +17,8 @@ const eslintConfig = defineConfig([
     "node_modules/**",
     "coverage/**",
     "src/components/ui/**",
+    // CoC proxy ayrı servis, kendi tooling'i var.
+    "coc-proxy/**",
   ]),
   {
     rules: {

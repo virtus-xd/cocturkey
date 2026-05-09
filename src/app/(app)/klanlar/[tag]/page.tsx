@@ -15,7 +15,9 @@ import {
 
 import { ApplyDialog } from "./apply-dialog";
 import { RefreshButton } from "./refresh-button";
+import { VerifyButton } from "./verify-button";
 
+import { ReportDialog } from "@/components/shared/report-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -91,8 +93,8 @@ export default async function ClanDetailPage({ params }: Props) {
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold sm:text-3xl">{listing.name}</h1>
-            {listing.owner.isVerified ? (
-              <ShieldCheck className="text-primary size-5" aria-label="Sahibi doğrulanmış" />
+            {listing.verifiedAt ? (
+              <ShieldCheck className="text-primary size-5" aria-label="Klan doğrulanmış" />
             ) : null}
           </div>
           <p className="text-muted-foreground font-mono text-sm">{listing.clanTag}</p>
@@ -113,7 +115,15 @@ export default async function ClanDetailPage({ params }: Props) {
             isOwner={isOwner}
             signedIn={Boolean(session)}
           />
-          {isOwner ? <RefreshButton clanListingId={listing.id} /> : null}
+          {isOwner ? (
+            <div className="flex flex-wrap gap-2">
+              <RefreshButton clanListingId={listing.id} />
+              <VerifyButton
+                clanListingId={listing.id}
+                alreadyVerified={Boolean(listing.verifiedAt)}
+              />
+            </div>
+          ) : null}
         </div>
       </header>
 
@@ -185,6 +195,12 @@ export default async function ClanDetailPage({ params }: Props) {
         Veriler son olarak {new Date(listing.lastSyncedAt).toLocaleString("tr-TR")}'da CoC'tan
         çekildi.
       </p>
+
+      {session && !isOwner ? (
+        <div className="mt-2">
+          <ReportDialog clanListingId={listing.id} />
+        </div>
+      ) : null}
 
       <div className="mt-6">
         <Link

@@ -8,6 +8,8 @@ import { prisma } from "@/lib/db/prisma";
 import { CLAN_REFRESH_COOLDOWN_MS } from "@/lib/constants";
 import { cocClient, cocErrorToUserMessage } from "@/lib/coc/client";
 import { mapWarFrequency } from "@/lib/coc/mappers";
+import { sendEmail } from "@/lib/email/client";
+import { applicationReceivedTemplate } from "@/lib/email/templates";
 import { createApplicationSchema } from "@/lib/validation/clan";
 
 type ApplyResult = { ok: true } | { ok: false; error: string };
@@ -25,7 +27,14 @@ export async function applyToClan(formData: FormData): Promise<ApplyResult> {
 
   const listing = await prisma.clanListing.findUnique({
     where: { id: parsed.data.clanListingId },
-    select: { id: true, ownerId: true, status: true, clanTag: true },
+    select: {
+      id: true,
+      ownerId: true,
+      status: true,
+      clanTag: true,
+      name: true,
+      owner: { select: { email: true, username: true } },
+    },
   });
   if (!listing || listing.status !== "ACTIVE") {
     return { ok: false, error: "İlan bulunamadı veya pasif." };
@@ -51,6 +60,19 @@ export async function applyToClan(formData: FormData): Promise<ApplyResult> {
     }
     throw e;
   }
+
+  // Klan sahibine e-posta — fire-and-forget, sonuç başvuruyu engellemesin.
+  void sendEmail({
+    to: listing.owner.email,
+    ...applicationReceivedTemplate({
+      ownerEmail: listing.owner.email,
+      ownerName: listing.owner.username,
+      clanName: listing.name,
+      clanTag: listing.clanTag,
+      applicantName: session.app.username,
+      applicantMessage: parsed.data.message,
+    }),
+  });
 
   revalidatePath(`/klanlar/${encodeURIComponent(listing.clanTag)}`);
   return { ok: true };

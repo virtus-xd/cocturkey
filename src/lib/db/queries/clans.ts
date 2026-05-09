@@ -25,6 +25,12 @@ export async function listClanListings(filters: ClanListFilters) {
   if (filters.language) {
     where.language = filters.language;
   }
+  if (filters.minTrophies !== undefined) {
+    where.trophies = { gte: filters.minTrophies };
+  }
+  if (filters.tag) {
+    where.tags = { has: filters.tag.toLowerCase() };
+  }
   if (filters.search) {
     where.OR = [
       { name: { contains: filters.search, mode: "insensitive" } },
@@ -78,6 +84,10 @@ export async function getClanListingByTag(clanTag: string) {
     },
   });
 }
+
+export type ClanWithVerification = NonNullable<
+  Awaited<ReturnType<typeof getClanListingByTag>>
+>;
 
 /** Her görüntülemede view counter'ı +1 yapar (fire-and-forget). */
 export async function bumpClanViewCount(clanListingId: string) {

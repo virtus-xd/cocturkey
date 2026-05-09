@@ -72,3 +72,16 @@ export async function requireSession(redirectTo?: string): Promise<SessionUser> 
   }
   return session;
 }
+
+/** Belirli rolde olmayan kullanıcıyı 404'e yönlendir (rolü gizlemek için). */
+export async function requireRole(
+  roles: Array<"MODERATOR" | "ADMIN">,
+  redirectTo?: string,
+): Promise<SessionUser> {
+  const session = await requireSession(redirectTo);
+  if (!roles.includes(session.app.role as "MODERATOR" | "ADMIN")) {
+    const { notFound } = await import("next/navigation");
+    notFound();
+  }
+  return session;
+}

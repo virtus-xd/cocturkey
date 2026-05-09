@@ -54,8 +54,10 @@ export type CreateClanListingInput = z.infer<typeof createClanListingSchema>;
 export const clanListFiltersSchema = z.object({
   minTH: z.coerce.number().int().min(1).max(17).optional(),
   maxTH: z.coerce.number().int().min(1).max(17).optional(),
+  minTrophies: z.coerce.number().int().min(0).max(80_000).optional(),
   warFrequency: warFrequencyEnum.optional(),
   language: z.string().optional(),
+  tag: z.string().trim().max(30).optional(), // tek etiket filtresi
   search: z.string().trim().max(100).optional(),
   cursor: z.string().optional(),
 });

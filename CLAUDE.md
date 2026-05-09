@@ -433,17 +433,17 @@ Bu **görmezden gelinemez** kurallardır. Her özellik tasarlanırken kontrol ed
 
 **Bittiğinde:** İlk 10-20 klanı manuel ekle (Discord topluluğundan davet et). Hemen lansmana çıkma.
 
-### Faz 2 — Kullanılabilirlik (2-3 hafta)
+### Faz 2 — Kullanılabilirlik (2-3 hafta) — `~%90 tamam`
 
-- [ ] Oyuncu ilanları (ters yön: oyuncu klan arar gibi, klan oyuncu arar)
-- [ ] Gelişmiş filtreler (kupa, aktif saat, etiketler)
-- [ ] İlan "yenile/bump" özelliği
-- [ ] E-posta bildirimleri (başvuru geldiğinde)
-- [ ] Şikayet/moderasyon temel altyapısı
-- [ ] Admin paneli (basit: Retool benzeri yerine Next.js içinde route)
-- [ ] Klan tag doğrulama (oyun içi açıklamaya kod ekletme yöntemi)
-- [ ] Arama (klan adı, etiketle)
-- [ ] SEO temel (meta tags, sitemap, OG image)
+- [x] Oyuncu ilanları — `/oyuncular` liste + filtre, `/oyuncular/[id]` detay, `/ilan-ver/oyuncu` form (CoC etiketi opsiyonel)
+- [x] Gelişmiş filtreler — kupa min, etiket filtresi (klan); kupa min, aradığı savaş (oyuncu)
+- [x] İlan "yenile/bump" özelliği — profil sayfasında, 24 saat cooldown
+- [x] E-posta bildirimleri — Resend SDK + dev console.log fallback; başvuru gelince klan sahibine
+- [x] Şikayet/moderasyon temel altyapısı — `ReportDialog` (klan + oyuncu), saatte 5 limit, duplicate guard
+- [x] Admin paneli — `/admin` (rol guard), `/admin/raporlar` (kuyruk + çöz/reddet), `/admin/ilanlar` (ban/aktif)
+- [x] Klan tag doğrulama — geçici 6-karakter kod (30dk) → CoC açıklamasına yapıştır → `verifiedAt` set
+- [x] Arama — klan adı + etiket; oyuncu adı + lookingFor
+- [x] SEO temel — Faz 1'de yapıldı; Faz 2'de sitemap'e oyuncu ilanları eklendi
 
 ### Faz 3 — Topluluk Genişlemesi (3-4 hafta)
 
@@ -664,10 +664,11 @@ NODE_ENV=development
 
 ## 17. Sürüm Geçmişi (Bu Dosyanın)
 
-| Tarih      | Değişiklik                                                                                                                                                                                         |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-05-09 | İlk versiyon — proje planlama                                                                                                                                                                      |
-| 2026-05-09 | Faz 0 kod iskeleti kuruldu: Next 16 + Tailwind v4 + shadcn/ui (Radix/Nova) + Prisma 7 + tooling (Prettier/Husky/lint-staged/Vitest). Stack güncellendi (Next 15 → 16, Prisma 7 datasource config). |
+| Tarih      | Değişiklik                                                                                                                                                                                                                                                                                  |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-05-09 | İlk versiyon — proje planlama                                                                                                                                                                                                                                                               |
+| 2026-05-09 | Faz 0 kod iskeleti kuruldu: Next 16 + Tailwind v4 + shadcn/ui (Radix/Nova) + Prisma 7 + tooling (Prettier/Husky/lint-staged/Vitest). Stack güncellendi (Next 15 → 16, Prisma 7 datasource config).                                                                                          |
 | 2026-05-09 | Faz 1 MVP core tamam: Supabase Auth (server actions + middleware), klan ilanı/liste/filtre/detay/başvuru akışları, profil sayfası, CoC proxy iskeleti, SEO (robots/sitemap/manifest/OG), Sentry skeleton. Prisma 7 driver adapter (@prisma/adapter-pg) + lazy Proxy. 21/21 unit test geçer. |
+| 2026-05-09 | Faz 2 kullanılabilirlik tamam: oyuncu ilanları (`/oyuncular`, `/ilan-ver/oyuncu`), bump/pause aksiyonları (24h cooldown), Resend e-posta (dev fallback), şikayet sistemi (`ReportDialog` + duplicate/rate guard), admin paneli (rol guard + rapor kuyruğu + ilan ban), klan tag doğrulama (oyun içi açıklamaya 6-karakter kod). 29/29 test geçer. |
 
 > **Not:** Bu dosya proje boyunca yaşar. Her büyük karar burada yansıtılır. Karar değiştiyse eski karar silinmez, üstü çizilir veya yeniden yazılır.

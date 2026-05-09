@@ -19,23 +19,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dinamik klan ilanları — DB yoksa sessizce statik liste döner.
   // Build-time'da DATABASE_URL henüz olmayabilir; Proxy throw eder, biz tutarız.
   let clans: Array<{ clanTag: string; updatedAt: Date }> = [];
+  let players: Array<{ id: string; updatedAt: Date }> = [];
   try {
-    clans = await prisma.clanListing.findMany({
-      where: { status: "ACTIVE" },
-      select: { clanTag: true, updatedAt: true },
-      orderBy: { bumpedAt: "desc" },
-      take: 5000,
-    });
+    [clans, players] = await Promise.all([
+      prisma.clanListing.findMany({
+        where: { status: "ACTIVE" },
+        select: { clanTag: true, updatedAt: true },
+        orderBy: { bumpedAt: "desc" },
+        take: 5000,
+      }),
+      prisma.playerListing.findMany({
+        where: { status: "ACTIVE" },
+        select: { id: true, updatedAt: true },
+        orderBy: { bumpedAt: "desc" },
+        take: 5000,
+      }),
+    ]);
   } catch {
     /* DB henüz hazır değil ya da bağlantı patladı — sadece statik harita */
   }
 
-  const dynamicEntries: MetadataRoute.Sitemap = clans.map((c) => ({
+  const clanEntries: MetadataRoute.Sitemap = clans.map((c) => ({
     url: `${SITE.url}/klanlar/${encodeURIComponent(c.clanTag)}`,
     lastModified: c.updatedAt,
     priority: 0.6,
     changeFrequency: "weekly",
   }));
 
-  return [...staticEntries, ...dynamicEntries];
+  const playerEntries: MetadataRoute.Sitemap = players.map((p) => ({
+    url: `${SITE.url}/oyuncular/${p.id}`,
+    lastModified: p.updatedAt,
+    priority: 0.5,
+    changeFrequency: "weekly",
+  }));
+
+  return [...staticEntries, ...clanEntries, ...playerEntries];
 }

@@ -21,8 +21,10 @@ export default async function ClansPage({ searchParams }: Props) {
   const parsed = clanListFiltersSchema.safeParse({
     minTH: raw.minTH,
     maxTH: raw.maxTH,
+    minTrophies: raw.minTrophies,
     warFrequency: raw.warFrequency === "any" ? undefined : raw.warFrequency,
     language: raw.language,
+    tag: raw.tag,
     search: raw.search,
     cursor: raw.cursor,
   });

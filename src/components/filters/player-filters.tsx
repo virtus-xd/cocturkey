@@ -22,10 +22,9 @@ const WAR_FREQUENCIES = [
   { value: "MORE_THAN_ONCE_PER_WEEK", label: "Haftada birden fazla" },
   { value: "ONCE_PER_WEEK", label: "Haftada bir" },
   { value: "LESS_THAN_ONCE_PER_WEEK", label: "Haftada birden az" },
-  { value: "NEVER", label: "Asla" },
 ] as const;
 
-export function ClanFilters() {
+export function PlayerFilters() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -38,7 +37,7 @@ export function ClanFilters() {
     } else {
       params.set(key, value);
     }
-    params.delete("cursor"); // filtre değişince sayfayı sıfırla
+    params.delete("cursor");
     startTransition(() => {
       router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     });
@@ -53,10 +52,10 @@ export function ClanFilters() {
       }}
       className="bg-card border-border/60 sticky top-14 z-30 rounded-lg border p-3 backdrop-blur"
     >
-      <div className="grid gap-3 sm:grid-cols-6">
+      <div className="grid gap-3 sm:grid-cols-5">
         <div className="space-y-1.5 sm:col-span-2">
           <Label htmlFor="search" className="text-xs">
-            Klan adı
+            Oyuncu adı / etiket
           </Label>
           <div className="relative">
             <Search className="text-muted-foreground absolute top-1/2 left-2.5 size-4 -translate-y-1/2" />
@@ -81,7 +80,6 @@ export function ClanFilters() {
             max={TH_LEVEL.max}
             defaultValue={searchParams.get("minTH") ?? ""}
             onBlur={(e) => setParam("minTH", e.target.value)}
-            placeholder={String(TH_LEVEL.defaultMin)}
           />
         </div>
 
@@ -93,36 +91,21 @@ export function ClanFilters() {
             id="minTrophies"
             type="number"
             min={0}
-            max={80000}
-            step={1000}
+            max={8000}
             defaultValue={searchParams.get("minTrophies") ?? ""}
             onBlur={(e) => setParam("minTrophies", e.target.value)}
-            placeholder="20000"
           />
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="tag" className="text-xs">
-            Etiket
-          </Label>
-          <Input
-            id="tag"
-            name="tag"
-            defaultValue={searchParams.get("tag") ?? ""}
-            onBlur={(e) => setParam("tag", e.target.value)}
-            placeholder="war-odaklı"
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label htmlFor="warFrequency" className="text-xs">
-            Savaş sıklığı
+          <Label htmlFor="preferredWarFreq" className="text-xs">
+            Aradığı savaş
           </Label>
           <Select
-            value={searchParams.get("warFrequency") ?? "any"}
-            onValueChange={(v) => setParam("warFrequency", v)}
+            value={searchParams.get("preferredWarFreq") ?? "any"}
+            onValueChange={(v) => setParam("preferredWarFreq", v)}
           >
-            <SelectTrigger id="warFrequency">
+            <SelectTrigger id="preferredWarFreq">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -138,7 +121,7 @@ export function ClanFilters() {
 
       <div className="mt-3 flex items-center justify-between">
         <p className="text-muted-foreground text-xs">
-          {pending ? "Filtreleniyor…" : "Filtreler URL'de saklanır, paylaşabilirsin."}
+          {pending ? "Filtreleniyor…" : "Filtreler URL'de saklanır."}
         </p>
         <Button
           type="button"

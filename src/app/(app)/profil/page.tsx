@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { requireSession } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
 
+import { BumpButton, PauseResumeButton } from "./listing-actions";
+
 export const metadata: Metadata = {
   title: "Profil",
   description: "Hesabını ve ilanlarını yönet.",
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 export default async function ProfilePage() {
   const session = await requireSession("/profil");
 
-  const [listings, applications] = await Promise.all([
+  const [clanListings, playerListings, applications] = await Promise.all([
     prisma.clanListing.findMany({
       where: { ownerId: session.app.id },
       orderBy: { bumpedAt: "desc" },
@@ -30,17 +32,27 @@ export default async function ProfilePage() {
         _count: { select: { applications: true } },
       },
     }),
+    prisma.playerListing.findMany({
+      where: { ownerId: session.app.id },
+      orderBy: { bumpedAt: "desc" },
+      select: {
+        id: true,
+        ingameName: true,
+        thLevel: true,
+        status: true,
+        viewCount: true,
+        bumpedAt: true,
+      },
+    }),
     prisma.application.findMany({
       where: { applicantId: session.app.id },
       orderBy: { createdAt: "desc" },
       take: 20,
       include: {
-        clanListing: {
-          select: { clanTag: true, name: true, badgeUrl: true },
-        },
+        clanListing: { select: { clanTag: true, name: true, badgeUrl: true } },
       },
     }),
-  ]).catch(() => [[], []] as const);
+  ]).catch(() => [[], [], []] as const);
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 px-4 py-10 sm:px-6">
@@ -53,42 +65,79 @@ export default async function ProfilePage() {
 
       <section>
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">İlanların</h2>
+          <h2 className="text-lg font-semibold">Klan ilanların</h2>
           <Button asChild size="sm">
-            <Link href="/ilan-ver">Yeni ilan</Link>
+            <Link href="/ilan-ver/klan">Yeni klan ilanı</Link>
           </Button>
         </div>
 
-        {listings.length === 0 ? (
-          <Card>
-            <CardContent className="text-muted-foreground py-8 text-center text-sm">
-              Henüz ilan açmamışsın.{" "}
-              <Link href="/ilan-ver" className="underline underline-offset-2">
-                İlk ilanı şimdi ver.
-              </Link>
-            </CardContent>
-          </Card>
+        {clanListings.length === 0 ? (
+          <EmptyCard text="Henüz klan ilanı açmamışsın." href="/ilan-ver/klan" link="İlk ilanı şimdi ver." />
         ) : (
           <ul className="space-y-3">
-            {listings.map((l) => (
+            {clanListings.map((l) => (
               <li key={l.id}>
-                <Link href={`/klanlar/${encodeURIComponent(l.clanTag)}`}>
-                  <Card className="hover:border-primary/50 transition-colors">
-                    <CardContent className="flex items-center gap-4 p-4">
-                      <div className="flex-1">
-                        <p className="font-semibold">{l.name}</p>
-                        <p className="text-muted-foreground font-mono text-xs">{l.clanTag}</p>
-                      </div>
-                      <div className="text-muted-foreground text-right text-xs">
-                        <p>{l._count.applications} başvuru</p>
-                        <p>{l.viewCount} görüntülenme</p>
-                      </div>
-                      <Badge variant={l.status === "ACTIVE" ? "default" : "secondary"}>
-                        {l.status === "ACTIVE" ? "Yayında" : l.status}
-                      </Badge>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <Card>
+                  <CardContent className="flex items-center gap-3 p-4">
+                    <Link
+                      href={`/klanlar/${encodeURIComponent(l.clanTag)}`}
+                      className="min-w-0 flex-1 hover:underline"
+                    >
+                      <p className="truncate font-semibold">{l.name}</p>
+                      <p className="text-muted-foreground font-mono text-xs">{l.clanTag}</p>
+                    </Link>
+                    <div className="text-muted-foreground text-right text-xs">
+                      <p>{l._count.applications} başvuru</p>
+                      <p>{l.viewCount} görüntülenme</p>
+                    </div>
+                    <Badge variant={l.status === "ACTIVE" ? "default" : "secondary"}>
+                      {l.status === "ACTIVE" ? "Yayında" : l.status}
+                    </Badge>
+                    <div className="flex gap-1">
+                      <BumpButton id={l.id} type="clan" />
+                      <PauseResumeButton id={l.id} active={l.status === "ACTIVE"} />
+                    </div>
+                  </CardContent>
+                </Card>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Oyuncu ilanın</h2>
+          <Button asChild size="sm" variant="outline">
+            <Link href="/ilan-ver/oyuncu">
+              {playerListings.length > 0 ? "Güncelle" : "Yeni oyuncu ilanı"}
+            </Link>
+          </Button>
+        </div>
+
+        {playerListings.length === 0 ? (
+          <EmptyCard
+            text="Klan arıyorsan oyuncu ilanı yayınla."
+            href="/ilan-ver/oyuncu"
+            link="Hemen ver."
+          />
+        ) : (
+          <ul className="space-y-3">
+            {playerListings.map((p) => (
+              <li key={p.id}>
+                <Card>
+                  <CardContent className="flex items-center gap-3 p-4">
+                    <Link href={`/oyuncular/${p.id}`} className="min-w-0 flex-1 hover:underline">
+                      <p className="truncate font-semibold">{p.ingameName}</p>
+                      <p className="text-muted-foreground text-xs">TH {p.thLevel}</p>
+                    </Link>
+                    <p className="text-muted-foreground text-xs">{p.viewCount} görüntülenme</p>
+                    <Badge variant={p.status === "ACTIVE" ? "default" : "secondary"}>
+                      {p.status === "ACTIVE" ? "Yayında" : p.status}
+                    </Badge>
+                    <BumpButton id={p.id} type="player" />
+                  </CardContent>
+                </Card>
               </li>
             ))}
           </ul>
@@ -98,14 +147,11 @@ export default async function ProfilePage() {
       <section>
         <h2 className="mb-3 text-lg font-semibold">Başvurularım</h2>
         {applications.length === 0 ? (
-          <Card>
-            <CardContent className="text-muted-foreground py-8 text-center text-sm">
-              Henüz hiçbir klana başvurmamışsın.{" "}
-              <Link href="/klanlar" className="underline underline-offset-2">
-                Klanları gez.
-              </Link>
-            </CardContent>
-          </Card>
+          <EmptyCard
+            text="Henüz hiçbir klana başvurmamışsın."
+            href="/klanlar"
+            link="Klanları gez."
+          />
         ) : (
           <ul className="space-y-2">
             {applications.map((a) => (
@@ -157,5 +203,18 @@ export default async function ProfilePage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+function EmptyCard({ text, href, link }: { text: string; href: string; link: string }) {
+  return (
+    <Card>
+      <CardContent className="text-muted-foreground py-8 text-center text-sm">
+        {text}{" "}
+        <Link href={href} className="underline underline-offset-2">
+          {link}
+        </Link>
+      </CardContent>
+    </Card>
   );
 }

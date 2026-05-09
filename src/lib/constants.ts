@@ -20,6 +20,10 @@ export const LISTINGS_PAGE_SIZE = 20;
 
 // Klan ilanı yenileme rate limit (manuel bump)
 export const CLAN_REFRESH_COOLDOWN_MS = 60 * 60 * 1000; // 1 saat
+// İlan "üste taşı" (bumpedAt = now) kullanıcı tarafından
+export const LISTING_BUMP_COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 saat
+// Şikayet rate limit
+export const REPORT_PER_HOUR = 5;
 
 // CoC cache TTL'leri (proxy tarafında uygulanır, burada referans için)
 export const COC_CACHE = {

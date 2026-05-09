@@ -72,6 +72,11 @@ model ClanListing {
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
+  // Klan tag doğrulaması (oyun içi açıklamaya kod yapıştırma)
+  verifiedAt        DateTime?
+  verificationCode  String? // aktif geçici kod
+  verificationExpiresAt DateTime?
+
   applications Application[]
   reports      Report[]
 
